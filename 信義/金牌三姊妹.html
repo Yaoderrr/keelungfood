@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+<title>信義區-金牌三姊妹</title>
+<link rel="stylesheet" href="style1.css" type="text/css" media="screen" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBombwBFDaA5F9dQlNIlevCWrTA_WChG4&call"> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src = "pic.js"></script>
+<script>
+ var directionDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var initialPlace;
+    var infowindow = new google.maps.InfoWindow();
+    var browserSupportFlag =  new Boolean();
+    var urPosition;
+    var taipei;
+ function initialize() {
+     directionsDisplay = new google.maps.DirectionsRenderer();
+     geocoder = new google.maps.Geocoder();
+     initialPlace = new google.maps.LatLng(25.128045,121.759359);
+      
+      var myOptions = {
+        zoom:16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: initialPlace
+        }
+      map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+      
+      var marker = new google.maps.Marker({
+            map: map, 
+            position: initialPlace
+        });
+      infowindow.setContent("金牌三姊妹");
+      infowindow.open(map, marker);
+      directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+     
+    }
+    
+ function getAddress(){
+        if(document.getElementById("agree").value=="no")     document.getElementById("address_lb").style.visibility="visible";
+        if(document.getElementById("agree").value=="yes")      document.getElementById("address_lb").style.visibility="hidden";
+        }
+    
+function getUrposition(){
+       taipei = new google.maps.LatLng(25.091075,121.55983449999997);
+        // Try W3C Geolocation (Preferred)
+	  if(navigator.geolocation) {
+		browserSupportFlag = true;
+		navigator.geolocation.getCurrentPosition(function(position) {
+		  urPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		  //map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeolocation(browserSupportFlag);
+		});
+	  // Try Google Gears Geolocation
+	   } else if (google.gears) {
+		browserSupportFlag = true;
+		var geo = google.gears.factory.create('beta.geolocation');
+		geo.getCurrentPosition(function(position) {
+		 urPosition = new google.maps.LatLng(position.latitude,position.longitude);
+		 // map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeoLocation(browserSupportFlag);
+		});
+	  // Browser doesn't support Geolocation
+	    } else {
+		browserSupportFlag = false;
+		handleNoGeolocation(browserSupportFlag);
+	  } 
+	}
+	 
+function handleNoGeolocation(errorFlag) {
+		if (errorFlag == true) {
+		  alert("Geolocation service failed.");
+		  //initialLocation = newyork;
+		} else {
+		  alert("Your browser doesn't support geolocation. We've placed you in Taipei.");
+		  urPosition = taipei;
+		}
+		//map.setCenter(initialLocation);
+	 }
+	  
+function calcRoute() {
+      var selectedMode = document.getElementById("mode").value; //交通方式
+      var selectedAgree = document.getElementById("agree").value;
+      var request;
+      var start;
+      var end ="金牌三姊妹";  
+      if(selectedAgree =="yes"){
+            getUrposition();
+             request = {
+                origin: urPosition, 
+                destination: initialPlace,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+              }  
+        else if(selectedAgree == "no"){
+            start=document.getElementById("address").value; 
+            request = {
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode[selectedMode]
+              };
+             }
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
+    }
+    
+	</script>
+</head>
+<body onload="initialize()">
+
+<div id="wrapper">
+
+<div id="header">
+	
+	<div class="slideshow autoPlay">
+		<ul>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="header1.jpg" title="周家蔥油餅" alt="" class="slideshow" />
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="555.jpg" title="龍蝦" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="photo.jpg" title="吉古拉" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header4.jpg" title="俞家魚湯" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header5.jpg" title="蒟蒻屋" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+		</ul>
+		</div>
+</div>
+	<div id="menu" style = "margin-left:40px; margin-bottom:15px;">
+		<ul>
+			<li><a href="#">首頁</a></li>
+			<li><a href="#">中山區</a></li>
+			<li><a href="#">中正區</a></li>
+			<li><a href="#">信義區</a></li>
+			<li><a href="#">仁愛區</a></li>
+			<li><a href="#">安樂區</a></li>
+			<li><a href="#">七堵區</a></li>
+			<li><a href="#">暖暖區</a></li>
+		</ul>
+	</div>
+
+	<div id="sidebar">
+		信義區美食
+		<!--<div id="feed">
+			<a class="feed-button" href="#"></a>
+		</div>-->
+		<ul>
+			<li><a href="#">信義區首頁</a></li>
+			<li><a href="#">半桶水滷肉飯</a></li>
+			<li><a href="#">阿塗伯米苔目</a></li>
+			<li><a href="#">胡記臭豆腐</a></li>
+			<li><a href="#">家弘米粉湯</a></li>
+		</ul>
+		<div id="sidebar-bottom">
+			&nbsp;
+		</div>
+	</div>
+	<div id="content"> 
+                  <h1>金牌三姊妹熱炒</h1>  
+				  <div style="border-color:#aaaaee;border-style:dashed;border-width:6px 6px 6px 6px;padding:5px;">
+				  <p style= "margin-top:20px ;text-decoration:underline ;color:red;">平價的熱炒，9道菜配一大瓶飲料的合菜不用1000元!</p>
+				   <img src = ".\Xinyi\food1-1.jpg" width="75%" height="300px">
+				  <p style= "margin-top:20px">戶外和室內都有座位，佔地算頗大。</p>
+				  <!--<div style = "float:right;font-size:15px;font-weight:bold;margin:-20px 30px">內容取自---WIKI</div>-->
+                    <img src = ".\Xinyi\food2-2.jpg" width="75%" height="280px">
+					<p style = "margin-top:20px">半桶水魯肉飯的店內用餐空間</p>
+					<img src = ".\Xinyi\food2-2.jpg" width="75%" height="280px">
+					<p style= "margin-top:15px;text-decoration:underline;"> 菜單，價格真的很平價，大部份基本款菜色都在100元左右。</p>
+					<img src = ".\Xinyi\food1-3.jpg" width="80%" height="400px" style = "margin-right:10px;margin-left:10px">
+					<p style = "margin-top:15px"><span style = "color:red;">白飯免費供應</span>，現在很多熱炒白飯都要另外計價了</p>
+					<img src = ".\Xinyi\food1-4.jpg" width="75%" height="320px">
+					<section style= "margin-top:15px ;color:red">炒海瓜子 $100</section>
+					<p>海瓜子吃起來新鮮，而且又炒得入味。</p>
+					<img src = ".\Xinyi\food1-5.jpg" width="75%" height="300px">
+					<section style= "margin-top:15px ;color:red">蛤仔湯 $100</section>
+					<p>蛤仔一看胖度就知道很新鮮，而且湯好大一碗，裡面蛤仔也是多到不行，湯超鮮甜好喝!</p>
+					<img src = ".\Xinyi\food1-6.jpg" width="75%" height="300px">
+					<section style= "margin-top:15px ;color:red">蒜泥白肉 $100</section>
+					<p>幾乎都是瘦肉，但又很薄不會咬不動，搭配上高麗生菜和蒜泥醬又更好吃。</p>
+					<img src = ".\Xinyi\food1-7.jpg" width="75%" height="300px">
+					<section style= "margin-top:15px ;color:red">宮保雞丁 $100</section>
+					<p>雞肉炒的很軟嫩，而且搭配花生好好吃，但有點太辣就是了。</p>
+					<img src = ".\Xinyi\food1-8.jpg" width="75%" height="300px">
+								<div style = "float:right;font-size:15px;font-weight:bold;margin:0px 30px">內容及圖片來源---><a 
+								href = "https://dindin0706.tian.yam.com/posts/57317342" target="_blank" title = "丁丁Happy日誌">原文連結</a></div>
+								<br><br><br>
+					</div>
+                  <h1 style = "margin-bottom:20px;">如何前往金牌三姊妹熱炒呢?</h1>
+                 <!--<p style="margin-bottom:20px; margin-top:20px"></p>  -->
+				 <section> 地址：基隆市信義區東明路134號 </section>
+				  <section> 電話：02 2465 6117 </section>
+				 <select id="agree" style = "width:20%;"onchange="getAddress();">
+                      <option value="no">自行輸入地點</option>
+                      <option value="yes">同意本站存取您現在的位置</option>
+                   </select>
+				   <label id="address_lb">出發地
+                     <input id="address" type="text" size="30" id="address"/>
+                  </label>
+                 <select id="mode" style = "margin-top:2px;">
+                      <option value="DRIVING">開車</option>
+                      <option value="WALKING">步行</option>
+                   </select>
+                  <input type="button" value="前往!" id="go" onclick="calcRoute();"style = "margin-left:10px"/><br />
+				   
+				  <div style = "margin-top:-20px">
+                   <div id="map-canvas"style="width: 70%; height: 250px"></div>             
+                  <!--<p style="clear:both" /> -->
+              <!-- end center-->
+              
+                 <div style=" height:300px; float:left; width:20%;margin-left:20px;margin-bottom:30px;">
+                     <div id="directionsPanel" style="width:200px; height:300px;  overflow-Y:auto"></div>
+                </div>    
+				 <div class="clear" style="height:40px"></div> 
+				</div>				
+                <!--<div class="clear" style="height:40px"></div> -->
+            
+            </div> 
+            <!-- end content --> 
+          
+	<div id="footer">
+		<div id="footer-valid">
+			<a href="http://validator.w3.org/check/referer">參考資料</a> 
+			<br><br>
+			<a href="http://www.ginger-ninja.net/">關於我們!</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

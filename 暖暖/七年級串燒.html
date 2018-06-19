@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+<title>暖暖區-七年級串燒</title>
+<link rel="stylesheet" href="style1.css" type="text/css" media="screen" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBombwBFDaA5F9dQlNIlevCWrTA_WChG4&call"> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src = "pic.js"></script>
+<script>
+ var directionDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var initialPlace;
+    var infowindow = new google.maps.InfoWindow();
+    var browserSupportFlag =  new Boolean();
+    var urPosition;
+    var taipei;
+ function initialize() {
+     directionsDisplay = new google.maps.DirectionsRenderer();
+     geocoder = new google.maps.Geocoder();
+     initialPlace = new google.maps.LatLng(25.098075,121.734840);
+      
+      var myOptions = {
+        zoom:16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: initialPlace
+        }
+      map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+      
+      var marker = new google.maps.Marker({
+            map: map, 
+            position: initialPlace
+        });
+      infowindow.setContent("七年級串燒");
+      infowindow.open(map, marker);
+      directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+     
+    }
+    
+ function getAddress(){
+        if(document.getElementById("agree").value=="no")     document.getElementById("address_lb").style.visibility="visible";
+        if(document.getElementById("agree").value=="yes")      document.getElementById("address_lb").style.visibility="hidden";
+        }
+    
+function getUrposition(){
+       taipei = new google.maps.LatLng(25.099177,121.734754);
+        // Try W3C Geolocation (Preferred)
+	  if(navigator.geolocation) {
+		browserSupportFlag = true;
+		navigator.geolocation.getCurrentPosition(function(position) {
+		  urPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		  //map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeolocation(browserSupportFlag);
+		});
+	  // Try Google Gears Geolocation
+	   } else if (google.gears) {
+		browserSupportFlag = true;
+		var geo = google.gears.factory.create('beta.geolocation');
+		geo.getCurrentPosition(function(position) {
+		 urPosition = new google.maps.LatLng(position.latitude,position.longitude);
+		 // map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeoLocation(browserSupportFlag);
+		});
+	  // Browser doesn't support Geolocation
+	    } else {
+		browserSupportFlag = false;
+		handleNoGeolocation(browserSupportFlag);
+	  } 
+	}
+	 
+function handleNoGeolocation(errorFlag) {
+		if (errorFlag == true) {
+		  alert("Geolocation service failed.");
+		  //initialLocation = newyork;
+		} else {
+		  alert("Your browser doesn't support geolocation. We've placed you in Taipei.");
+		  urPosition = taipei;
+		}
+		//map.setCenter(initialLocation);
+	 }
+	  
+function calcRoute() {
+      var selectedMode = document.getElementById("mode").value; //交通方式
+      var selectedAgree = document.getElementById("agree").value;
+      var request;
+      var start;
+      var end ="七年級串燒";  
+      if(selectedAgree =="yes"){
+            getUrposition();
+             request = {
+                origin: urPosition, 
+                destination: initialPlace,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+              }  
+        else if(selectedAgree == "no"){
+            start=document.getElementById("address").value; 
+            request = {
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode[selectedMode]
+              };
+             }
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
+    }
+    
+	</script>
+</head>
+<body onload="initialize()">
+
+<div id="wrapper">
+
+<div id="header">
+	
+	<div class="slideshow autoPlay">
+		<ul>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="header1.jpg" title="周家蔥油餅" alt="" class="slideshow" />
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="555.jpg" title="龍蝦" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="photo.jpg" title="吉古拉" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header4.jpg" title="俞家魚湯" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header5.jpg" title="蒟蒻屋" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+		</ul>
+		</div>
+</div>
+	<div id="menu" style = "margin-left:40px; margin-bottom:15px;">
+		<ul>
+			<li><a href="#">首頁</a></li>
+			<li><a href="#">中山區</a></li>
+			<li><a href="#">中正區</a></li>
+			<li><a href="#">信義區</a></li>
+			<li><a href="#">仁愛區</a></li>
+			<li><a href="#">安樂區</a></li>
+			<li><a href="#">七堵區</a></li>
+			<li><a href="#">暖暖區</a></li>
+		</ul>
+	</div>
+
+	<div id="sidebar">
+		暖暖區美食
+		<!--<div id="feed">
+			<a class="feed-button" href="#"></a>
+		</div>-->
+		<ul>
+			<li><a href="#">暖暖區首頁</a></li>
+			<li><a href="#">老店蔥油餅</a></li>
+			<li><a href="#">暖暖老街麵攤</a></li>
+			<li><a href="#">暖暖咖啡</a></li>
+		</ul>
+		<div id="sidebar-bottom">
+			&nbsp;
+		</div>
+	</div>
+	<div id="content"> 
+                  <h1>七年級串燒居酒屋</h1>  
+				  <div style="border-color:#aaaaee;border-style:dashed;border-width:6px 6px 6px 6px;padding:5px;">
+				  <p style= "margin-top:20px ;text-decoration:underline ;color:red;">在基隆，也能吃到好吃且平價的日式風味!</p>
+				  <img src = ".\warm\food1-1.jpg" width="80%" height="280px">
+				  <p>七年級串燒居酒屋有內用櫃檯和外帶櫃檯，內用的話直接走進去從右側的櫃台上拿菜單到座位上點餐即可，外帶的話則是在照片中的窗口點餐，右側的冷藏櫃內則是串燒們。</p>
+				  <!--<div style = "float:right;font-size:15px;font-weight:bold;margin:-20px 30px">內容取自---WIKI</div>-->
+                    <img src = ".\warm\food1-2.jpg" width="80%" height="280px">
+					<p style = "margin-top:20px"> 店內的用餐區，桌上都有擺放開瓶器、衛生紙和小垃圾桶。</p>
+					<img src = ".\warm\food1-3.jpg" width="80%" height="320px" style = "margin-right:10px;margin-left:10px">
+					<p style= "margin-top:15px;">七年級串燒居酒屋的菜單。可放大 </p>
+					<p style= "margin-top:15px;">這份菜單是屬於暖暖店的菜單，與總店的菜單略微不同唷！</p>
+					<section style= "margin-top:15px ;color:red">明太子雞肉串 $70/2串</section>
+ 					<p>炙烤過的明太子醬散發出誘人的香氣，有在店家粉絲團看到他們的雞肉串是使用里肌肉，這天的雞肉串烤的熟度適中，口感嫩香不柴還微帶肉汁唷！明太子醬的部分以蛋黃醬的香甜為主，明太子隱約吃的到啵啵啵的口感，但是香氣就比較不顯著。</p>
+					<img src = ".\warm\food1-4.jpg" width="80%" height="300px">
+					<section style= "margin-top:15px ;color:red">豬五花起司球 $80/2串</section>
+					<p style= "margin-top:15px"> 豬五花目前有包青蔥、番茄和起司球的可以選擇</p>
+					<p>豬五花烤過後呈現紮實酥香的口感，而起司球的吃起來外層有彈性、金黃色的起司內餡則是滑順的口感，</p>
+					<img src = ".\warm\food1-5.jpg" width="80%" height="300px">
+					<img src = ".\warm\food1-6.jpg" width="80%" height="300px" style= "margin-top:15px;">
+					<section style= "margin-top:15px ;color:red">醬烤雞排 $60</section>
+					<p style= "margin-top:15px;">醬烤雞排在菜單上屬於台式烤物，不過看起來是有先炸過後再刷醬去烤，七年級串燒居酒屋除了燒烤類外，還有賣台式炸物，如果想吃炸雞排、煉乳銀絲卷、章魚足或薯條的話，這裡也可以吃的到唷！</p>
+					<img src = ".\warm\food1-7.jpg" width="80%" height="300px">
+					
+								<div style = "float:right;font-size:15px;font-weight:bold;margin:0px 20px">內容及圖片來源---><a 
+								href = "https://jatravelstory.com/7grade-izakaya/" target="_blank" title = "J&A的旅行">原文連結</a></div>
+								<br><br><br>
+					</div>
+                  <h1 style = "margin-bottom:20px;">如何前往七年級串燒呢?</h1>
+                 <!--<p style="margin-bottom:20px; margin-top:20px"></p>  -->
+				 <section> 地址 : 基隆市暖暖區暖暖街235號 </section>
+				 <section>tell : 02 2458 0404</section>
+				 <select id="agree" style = "width:20%;"onchange="getAddress();">
+                      <option value="no">自行輸入地點</option>
+                      <option value="yes">同意本站存取您現在的位置</option>
+                   </select>
+				   <label id="address_lb">出發地
+                     <input id="address" type="text" size="30" id="address"/>
+                  </label>
+                 <select id="mode" style = "margin-top:2px;">
+                      <option value="DRIVING">開車</option>
+                      <option value="WALKING">步行</option>
+                   </select>
+                  <input type="button" value="前往!" id="go" onclick="calcRoute();"style = "margin-left:10px"/><br />
+				   
+				  <div style = "margin-top:-20px">
+                   <div id="map-canvas"style="width: 70%; height: 250px"></div>             
+                  <!--<p style="clear:both" /> -->
+              <!-- end center-->
+              
+                 <div style=" height:300px; float:left; width:20%;margin-left:20px;margin-bottom:30px;">
+                     <div id="directionsPanel" style="width:200px; height:300px;  overflow-Y:auto"></div>
+                </div>    
+				 <div class="clear" style="height:40px"></div> 
+				</div>				
+                <!--<div class="clear" style="height:40px"></div> -->
+            
+            </div> 
+            <!-- end content --> 
+          
+	<div id="footer">
+		<div id="footer-valid">
+			<a href="http://validator.w3.org/check/referer">參考資料</a> 
+			<br><br>
+			<a href="http://www.ginger-ninja.net/">關於我們!</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

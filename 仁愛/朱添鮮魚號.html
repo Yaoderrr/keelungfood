@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+<title>仁愛區-朱添鮮魚號</title>
+<link rel="stylesheet" href="style1.css" type="text/css" media="screen" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBombwBFDaA5F9dQlNIlevCWrTA_WChG4&call"> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src = "pic.js"></script>
+<script>
+ var directionDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var initialPlace;
+    var infowindow = new google.maps.InfoWindow();
+    var browserSupportFlag =  new Boolean();
+    var urPosition;
+    var taipei;
+ function initialize() {
+     directionsDisplay = new google.maps.DirectionsRenderer();
+     geocoder = new google.maps.Geocoder();
+     initialPlace = new google.maps.LatLng(25.128128,121.741265);
+      
+      var myOptions = {
+        zoom:16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: initialPlace
+        }
+      map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+      
+      var marker = new google.maps.Marker({
+            map: map, 
+            position: initialPlace
+        });
+      infowindow.setContent("朱添鮮魚號");
+      infowindow.open(map, marker);
+      directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+     
+    }
+    
+ function getAddress(){
+        if(document.getElementById("agree").value=="no")     document.getElementById("address_lb").style.visibility="visible";
+        if(document.getElementById("agree").value=="yes")      document.getElementById("address_lb").style.visibility="hidden";
+        }
+    
+function getUrposition(){
+       taipei = new google.maps.LatLng(25.091075,121.55983449999997);
+        // Try W3C Geolocation (Preferred)
+	  if(navigator.geolocation) {
+		browserSupportFlag = true;
+		navigator.geolocation.getCurrentPosition(function(position) {
+		  urPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		  //map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeolocation(browserSupportFlag);
+		});
+	  // Try Google Gears Geolocation
+	   } else if (google.gears) {
+		browserSupportFlag = true;
+		var geo = google.gears.factory.create('beta.geolocation');
+		geo.getCurrentPosition(function(position) {
+		 urPosition = new google.maps.LatLng(position.latitude,position.longitude);
+		 // map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeoLocation(browserSupportFlag);
+		});
+	  // Browser doesn't support Geolocation
+	    } else {
+		browserSupportFlag = false;
+		handleNoGeolocation(browserSupportFlag);
+	  } 
+	}
+	 
+function handleNoGeolocation(errorFlag) {
+		if (errorFlag == true) {
+		  alert("Geolocation service failed.");
+		  //initialLocation = newyork;
+		} else {
+		  alert("Your browser doesn't support geolocation. We've placed you in Taipei.");
+		  urPosition = taipei;
+		}
+		//map.setCenter(initialLocation);
+	 }
+	  
+function calcRoute() {
+      var selectedMode = document.getElementById("mode").value; //交通方式
+      var selectedAgree = document.getElementById("agree").value;
+      var request;
+      var start;
+      var end ="朱添鮮魚號";  
+      if(selectedAgree =="yes"){
+            getUrposition();
+             request = {
+                origin: urPosition, 
+                destination: initialPlace,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+              }  
+        else if(selectedAgree == "no"){
+            start=document.getElementById("address").value; 
+            request = {
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode[selectedMode]
+              };
+             }
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
+    }
+    
+	</script>
+</head>
+<body onload="initialize()">
+
+<div id="wrapper">
+
+<div id="header">
+	
+	<div class="slideshow autoPlay">
+		<ul>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="header1.jpg" title="周家蔥油餅" alt="" class="slideshow" />
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="555.jpg" title="龍蝦" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="photo.jpg" title="吉古拉" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header4.jpg" title="俞家魚湯" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header5.jpg" title="蒟蒻屋" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+		</ul>
+		</div>
+</div>
+	<div id="menu" style = "margin-left:40px; margin-bottom:15px;">
+		<ul>
+			<li><a href="#">首頁</a></li>
+			<li><a href="#">中山區</a></li>
+			<li><a href="#">中正區</a></li>
+			<li><a href="#">信義區</a></li>
+			<li><a href="#">仁愛區</a></li>
+			<li><a href="#">安樂區</a></li>
+			<li><a href="#">七堵區</a></li>
+			<li><a href="#">暖暖區</a></li>
+		</ul>
+	</div>
+
+	<div id="sidebar">
+		仁愛區美食
+		<!--<div id="feed">
+			<a class="feed-button" href="#"></a>
+		</div>-->
+		<ul>
+			<li><a href="#">仁愛區首頁</a></li>
+			<li><a href="#">阿華炒麵</a></li>
+			<li><a href="#">無名碳烤三明治</a></li>
+			<li><a href="#">廖媽媽珍奶</a></li>
+			<li><a href="#">蒟蒻屋</a></li>
+		</ul>
+		<div id="sidebar-bottom">
+			&nbsp;
+		</div>
+	</div>
+	<div id="content"> 
+                  <h1>半夜的鮮食-朱添鮮魚號</h1>  
+				  <div style="border-color:#aaaaee;border-style:dashed;border-width:6px 6px 6px 6px;padding:5px;">
+				  <p style= "margin-top:20px ;text-decoration:underline ;color:red;">夜中的一盞明燈！[朱添鮮魚號]，一定要來品嘗生魚片！</p>
+				  <p>說起這朱添鮮魚號，一直都在基隆仁愛市場內賣生魚片，每天都從
+				  凌晨三點開始營業，一直到隔天的晚上六點才打烊，店面小小的，並不起眼，但是生魚片卻非常新鮮，筆者半夜三點到時，居然已經有人在排隊了，實在是很神奇啊！</p>
+				  <!--<div style = "float:right;font-size:15px;font-weight:bold;margin:-20px 30px">內容取自---WIKI</div>-->
+                    <img src = ".\love\food3-1.jpg" width="75%" height="280px">
+					<p style = "margin-top:20px"> 朱添鮮魚號的用餐地點，是在店門口旁邊，以立吞及外帶的形態經營著，現場並沒有坐位。</p>
+					<p style= "margin-top:15px;"> 魚肉都是從崁仔頂批發過來整隻的魚，店家再自己處理的唷！<span style = "color:red;">每日</span>的魚種及價格都會隨機直接寫在價目表上，一目了然，但是通常腹肉都比較貴的唷！ </p>
+					<img src = ".\love\food3-2.jpg" width="80%" height="320px" style = "margin-right:10px;margin-left:10px">
+					<p style= "margin-top:20px">牆面上的文字說明了朱添鮮魚號的由來。下圖</p>
+					<img src = ".\love\food3-3.jpg" width="80%" height="320px" style = "margin-right:10px;margin-left:10px">
+					<section style= "margin-top:15px ;color:red">鮪魚皮油 每兩/時價</section>
+					<p style= "margin-top:15px;text-decoration:underline ;">鮪魚皮油~傳說中海裡的霜降牛肉，粉嫩粉嫩的紅色！</p>
+ 					<p>皮油指的是魚皮下接近脂肪的地方，魚肉的顏色比大肉淺，且不會有絲狀的油脂分佈，但其實皮油
+					的部份油脂相當豐富，因此吃起來不但滑順且甘甜，但因為油脂很豐富，吃多了可能會膩口。</p>
+					<img src = ".\love\food3-4.jpg" width="80%" height="300px">
+					<section style= "margin-top:15px ;color:red">紅甘腹 每兩/時價</section>
+					<p>紅甘也是紅肉系的生魚片，紅甘腹的油脂是甜的，腹部的肉滑滑QQ的，實在是很順口，和青干的口感不太一樣，較軟一些，卻不致於太軟，是帶有Q度的軟，好吃的想再加點呢！</p>
+					<img src = ".\love\food3-5.jpg" width="80%" height="300px">
+					<section style= "margin-top:15px ;color:red">味噌湯/$20元</section>
+					<p style= "margin-top:15px;">甜甜的白味噌湯，裡頭還有小驚喜、成塊的魚肉呢！湯頭除了味噌，也放了大量的洋蔥，難怪這麼甜啊！</p>
+					<img src = ".\love\food3-6.jpg" width="80%" height="300px">
+								<div style = "float:right;font-size:15px;font-weight:bold;margin:0px 20px">內容及圖片來源---><a 
+								href = "https://fengtaiwanway.com/post-341090907/" target="_blank" title = "黃水晶的瘋台灣味">原文連結</a></div>
+								<br><br><br>
+					</div>
+                  <h1 style = "margin-bottom:20px;">如何前往朱添鮮魚號呢?</h1>
+                 <!--<p style="margin-bottom:20px; margin-top:20px"></p>  -->
+				 <section> 地址 : 基隆市仁愛區仁四路45號 </section>
+				 <section> 營業時間:凌晨02:00~晚上18:00 </section>
+				 <select id="agree" style = "width:20%;"onchange="getAddress();">
+                      <option value="no">自行輸入地點</option>
+                      <option value="yes">同意本站存取您現在的位置</option>
+                   </select>
+				   <label id="address_lb">出發地
+                     <input id="address" type="text" size="30" id="address"/>
+                  </label>
+                 <select id="mode" style = "margin-top:2px;">
+                      <option value="DRIVING">開車</option>
+                      <option value="WALKING">步行</option>
+                   </select>
+                  <input type="button" value="前往!" id="go" onclick="calcRoute();"style = "margin-left:10px"/><br />
+				   
+				  <div style = "margin-top:-20px">
+                   <div id="map-canvas"style="width: 70%; height: 250px"></div>             
+                  <!--<p style="clear:both" /> -->
+              <!-- end center-->
+              
+                 <div style=" height:300px; float:left; width:20%;margin-left:20px;margin-bottom:30px;">
+                     <div id="directionsPanel" style="width:200px; height:300px;  overflow-Y:auto"></div>
+                </div>    
+				 <div class="clear" style="height:40px"></div> 
+				</div>				
+                <!--<div class="clear" style="height:40px"></div> -->
+            
+            </div> 
+            <!-- end content --> 
+          
+	<div id="footer">
+		<div id="footer-valid">
+			<a href="http://validator.w3.org/check/referer">參考資料</a> 
+			<br><br>
+			<a href="http://www.ginger-ninja.net/">關於我們!</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

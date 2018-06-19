@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+<title>中山區-俞家鮮魚湯</title>
+<link rel="stylesheet" href="style1.css" type="text/css" media="screen" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBombwBFDaA5F9dQlNIlevCWrTA_WChG4&call"> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src = "pic.js"></script>
+<script>
+ var directionDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var initialPlace;
+    var infowindow = new google.maps.InfoWindow();
+    var browserSupportFlag =  new Boolean();
+    var urPosition;
+    var taipei;
+ function initialize() {
+     directionsDisplay = new google.maps.DirectionsRenderer();
+     geocoder = new google.maps.Geocoder();
+     initialPlace = new google.maps.LatLng(25.147020,121.747046);
+      
+      var myOptions = {
+        zoom:16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: initialPlace
+        }
+      map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+      
+      var marker = new google.maps.Marker({
+            map: map, 
+            position: initialPlace
+        });
+      infowindow.setContent("俞家鮮魚湯");
+      infowindow.open(map, marker);
+      directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+     
+    }
+    
+ function getAddress(){
+        if(document.getElementById("agree").value=="no")     document.getElementById("address_lb").style.visibility="visible";
+        if(document.getElementById("agree").value=="yes")      document.getElementById("address_lb").style.visibility="hidden";
+        }
+    
+function getUrposition(){
+       taipei = new google.maps.LatLng(25.091075,121.55983449999997);
+        // Try W3C Geolocation (Preferred)
+	  if(navigator.geolocation) {
+		browserSupportFlag = true;
+		navigator.geolocation.getCurrentPosition(function(position) {
+		  urPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		  //map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeolocation(browserSupportFlag);
+		});
+	  // Try Google Gears Geolocation
+	   } else if (google.gears) {
+		browserSupportFlag = true;
+		var geo = google.gears.factory.create('beta.geolocation');
+		geo.getCurrentPosition(function(position) {
+		 urPosition = new google.maps.LatLng(position.latitude,position.longitude);
+		 // map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeoLocation(browserSupportFlag);
+		});
+	  // Browser doesn't support Geolocation
+	    } else {
+		browserSupportFlag = false;
+		handleNoGeolocation(browserSupportFlag);
+	  } 
+	}
+	 
+function handleNoGeolocation(errorFlag) {
+		if (errorFlag == true) {
+		  alert("Geolocation service failed.");
+		  //initialLocation = newyork;
+		} else {
+		  alert("Your browser doesn't support geolocation. We've placed you in Taipei.");
+		  urPosition = taipei;
+		}
+		//map.setCenter(initialLocation);
+	 }
+	  
+function calcRoute() {
+      var selectedMode = document.getElementById("mode").value; //交通方式
+      var selectedAgree = document.getElementById("agree").value;
+      var request;
+      var start;
+      var end ="俞家鮮魚湯";  
+      if(selectedAgree =="yes"){
+            getUrposition();
+             request = {
+                origin: urPosition, 
+                destination: initialPlace,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+              }  
+        else if(selectedAgree == "no"){
+            start=document.getElementById("address").value; 
+            request = {
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode[selectedMode]
+              };
+             }
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
+    }
+    
+	</script>
+</head>
+<body onload="initialize()">
+
+<div id="wrapper">
+
+<div id="header">
+	
+	<div class="slideshow autoPlay">
+		<ul>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="header1.jpg" title="周家蔥油餅" alt="" class="slideshow" />
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="555.jpg" title="龍蝦" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="photo.jpg" title="吉古拉" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header4.jpg" title="俞家魚湯" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header5.jpg" title="蒟蒻屋" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+		</ul>
+		</div>
+</div>
+	<div id="menu" style = "margin-left:40px; margin-bottom:15px;">
+		<ul>
+			<li><a href="#">首頁</a></li>
+			<li><a href="#">中山區</a></li>
+			<li><a href="#">中正區</a></li>
+			<li><a href="#">信義區</a></li>
+			<li><a href="#">仁愛區</a></li>
+			<li><a href="#">安樂區</a></li>
+			<li><a href="#">七堵區</a></li>
+			<li><a href="#">暖暖區</a></li>
+		</ul>
+	</div>
+
+	<div id="sidebar">
+		中山區美食
+		<!--<div id="feed">
+			<a class="feed-button" href="#"></a>
+		</div>-->
+		<ul>
+			<li><a href="#">中山區首頁</a></li>
+			<li><a href="#">三德炒羊肉</a></li>
+			<li><a href="#">小文肉羹滷肉飯</a></li>
+			<li><a href="#">龍蝦麻糬</a></li>
+		</ul>
+		<div id="sidebar-bottom">
+			&nbsp;
+		</div>
+	</div>
+	<div id="content"> 
+                  <h1>海大人必吃-俞家鮮魚湯</h1>  
+				  <div style="border-color:#aaaaee;border-style:dashed;border-width:6px 6px 6px 6px;padding:5px;">
+				  <p style= "margin-top:20px ;text-decoration:underline ;color:red;">海大學生及旅遊客必吃，半夜1點才開的美食。</p>
+				  <p>基隆宵夜吃什麼? 除了吃廟口夜市之外，俞家鮮魚湯 正統俞家清魚湯 也是常見的基隆宵夜推薦!</p>
+				  <p>俞家鮮魚湯是半夜一點半才開門，而且一週還休兩天，想來吃每次都得排隊，也是一餐難求。</p>
+				  <!--<div style = "float:right;font-size:15px;font-weight:bold;margin:-20px 30px">內容取自---WIKI</div>-->
+                    <img src = ".\Zhongshan\food1-1.jpg" width="80%" height="300px">
+					<img src = ".\Zhongshan\food1-2.jpg" width="80%" height="300px" style = "margin-top:20px">
+					<p style = "margin-top:20px"> 攤位前掛有一絕無分店，不知道是否與附近的姚家清魚湯有關係。</p>
+					<img src = ".\Zhongshan\food1-3.jpg" width="80%" height="320px" style = "margin-right:10px;margin-left:10px">
+					<p style = "margin-top:20px">最新的價目表，除了魚湯小漲價外，其他皆是便宜又大碗(下)</p>
+					<img src = ".\Zhongshan\food1-4.jpg" width="80%" height="320px" style = "margin-right:10px;margin-left:10px">
+					<section style= "margin-top:15px ;color:red">大麵炒 $30</section>
+ 					<p>大麵炒算是普通，沒有什麼太大的亮點，不過配上魚湯卻是適合的配餐，價格來說還能接受。</p>
+					<img src = ".\Zhongshan\food1-5.jpg" width="80%" height="300px">
+					<section style= "margin-top:15px ;color:red">味噌鮮魚湯 $40</section>
+					<p>味噌鮮魚湯的味噌味道蓋過鮮魚湯的鮮甜，有點可惜，但風味還算不錯。</p>
+					<img src = ".\Zhongshan\food1-6.jpg" width="80%" height="300px">
+					<section style= "margin-top:15px ;color:red">清魚湯 $40</section>
+					<p style= "margin-top:15px;">清魚湯，薑絲辣得很過癮，而且完全沒有魚腥味在口中的清甜感無懈可擊，令人無法忘懷。加上魚肉分量十分的夠，可以搭配桌上的沙西米及小魚乾一起享用。</p>
+					<img src = ".\Zhongshan\food1-7.jpg" width="80%" height="300px">
+					<img src = ".\Zhongshan\food1-8.jpg" width="80%" height="300px" style= "margin-top:15px;">
+								<div style = "float:right;font-size:15px;font-weight:bold;margin:0px 20px">內容及圖片來源---><a 
+								href = "https://nash.tw/yufish/" target="_blank" title = "Nash，神之領域">原文連結</a></div>
+								<br><br><br>
+					</div>
+                  <h1 style = "margin-bottom:20px;">如何前往正統俞家清魚湯呢?</h1>
+                 <!--<p style="margin-bottom:20px; margin-top:20px"></p>  -->
+				 <section> 地址 : 基隆市中山區仁安街131號 </section>
+				 <section> 營業時間:凌晨01:00~賣完為止 禮拜一、二公休</section>
+				 <section> 預定電話:0933 934 971 </section>
+				 <select id="agree" style = "width:20%;"onchange="getAddress();">
+                      <option value="no">自行輸入地點</option>
+                      <option value="yes">同意本站存取您現在的位置</option>
+                   </select>
+				   <label id="address_lb">出發地
+                     <input id="address" type="text" size="30" id="address"/>
+                  </label>
+                 <select id="mode" style = "margin-top:2px;">
+                      <option value="DRIVING">開車</option>
+                      <option value="WALKING">步行</option>
+                   </select>
+                  <input type="button" value="前往!" id="go" onclick="calcRoute();"style = "margin-left:10px"/><br />
+				   
+				  <div style = "margin-top:-20px">
+                   <div id="map-canvas"style="width: 70%; height: 250px"></div>             
+                  <!--<p style="clear:both" /> -->
+              <!-- end center-->
+              
+                 <div style=" height:300px; float:left; width:20%;margin-left:20px;margin-bottom:30px;">
+                     <div id="directionsPanel" style="width:200px; height:300px;  overflow-Y:auto"></div>
+                </div>    
+				 <div class="clear" style="height:40px"></div> 
+				</div>				
+                <!--<div class="clear" style="height:40px"></div> -->
+            
+            </div> 
+            <!-- end content --> 
+          
+	<div id="footer">
+		<div id="footer-valid">
+			<a href="http://validator.w3.org/check/referer">參考資料</a> 
+			<br><br>
+			<a href="http://www.ginger-ninja.net/">關於我們!</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

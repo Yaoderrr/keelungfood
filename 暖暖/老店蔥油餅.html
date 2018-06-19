@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset= utf-8" />
+<title>暖暖區-老店蔥油餅</title>
+<link rel="stylesheet" href="style1.css" type="text/css" media="screen" />
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBombwBFDaA5F9dQlNIlevCWrTA_WChG4&call"> </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src = "pic.js"></script>
+<script>
+ var directionDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var initialPlace;
+    var infowindow = new google.maps.InfoWindow();
+    var browserSupportFlag =  new Boolean();
+    var urPosition;
+    var taipei;
+ function initialize() {
+     directionsDisplay = new google.maps.DirectionsRenderer();
+     geocoder = new google.maps.Geocoder();
+     initialPlace = new google.maps.LatLng(25.098942,121.756195);
+      
+      var myOptions = {
+        zoom:16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: initialPlace
+        }
+      map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+      
+      var marker = new google.maps.Marker({
+            map: map, 
+            position: initialPlace
+        });
+      infowindow.setContent("老店蔥油餅");
+      infowindow.open(map, marker);
+      directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("directionsPanel"));
+     
+    }
+    
+ function getAddress(){
+        if(document.getElementById("agree").value=="no")     document.getElementById("address_lb").style.visibility="visible";
+        if(document.getElementById("agree").value=="yes")      document.getElementById("address_lb").style.visibility="hidden";
+        }
+    
+function getUrposition(){
+       taipei = new google.maps.LatLng(25.099177,121.734754);
+        // Try W3C Geolocation (Preferred)
+	  if(navigator.geolocation) {
+		browserSupportFlag = true;
+		navigator.geolocation.getCurrentPosition(function(position) {
+		  urPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+		  //map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeolocation(browserSupportFlag);
+		});
+	  // Try Google Gears Geolocation
+	   } else if (google.gears) {
+		browserSupportFlag = true;
+		var geo = google.gears.factory.create('beta.geolocation');
+		geo.getCurrentPosition(function(position) {
+		 urPosition = new google.maps.LatLng(position.latitude,position.longitude);
+		 // map.setCenter(initialLocation);
+		}, function() {
+		  handleNoGeoLocation(browserSupportFlag);
+		});
+	  // Browser doesn't support Geolocation
+	    } else {
+		browserSupportFlag = false;
+		handleNoGeolocation(browserSupportFlag);
+	  } 
+	}
+	 
+function handleNoGeolocation(errorFlag) {
+		if (errorFlag == true) {
+		  alert("Geolocation service failed.");
+		  //initialLocation = newyork;
+		} else {
+		  alert("Your browser doesn't support geolocation. We've placed you in Taipei.");
+		  urPosition = taipei;
+		}
+		//map.setCenter(initialLocation);
+	 }
+	  
+function calcRoute() {
+      var selectedMode = document.getElementById("mode").value; //交通方式
+      var selectedAgree = document.getElementById("agree").value;
+      var request;
+      var start;
+      var end ="老店蔥油餅";  
+      if(selectedAgree =="yes"){
+            getUrposition();
+             request = {
+                origin: urPosition, 
+                destination: initialPlace,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+              }  
+        else if(selectedAgree == "no"){
+            start=document.getElementById("address").value; 
+            request = {
+                origin: start, 
+                destination: end,
+                travelMode: google.maps.DirectionsTravelMode[selectedMode]
+              };
+             }
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        }
+      });
+    }
+    
+	</script>
+</head>
+<body onload="initialize()">
+
+<div id="wrapper">
+
+<div id="header">
+	
+	<div class="slideshow autoPlay">
+		<ul>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="header1.jpg" title="周家蔥油餅" alt="" class="slideshow" />
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+				<div class="imgw">  
+					<img class = "imgw" src="555.jpg" title="龍蝦" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="photo.jpg" title="吉古拉" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header4.jpg" title="俞家魚湯" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					<img class = "imgw" src="header5.jpg" title="蒟蒻屋" alt="" class="slideshow"/>
+					<div class="words ">Keelung delicacy</div>  
+				</a>
+			</li>
+		</ul>
+		</div>
+</div>
+	<div id="menu" style = "margin-left:40px; margin-bottom:15px;">
+		<ul>
+			<li><a href="#">首頁</a></li>
+			<li><a href="#">中山區</a></li>
+			<li><a href="#">中正區</a></li>
+			<li><a href="#">信義區</a></li>
+			<li><a href="#">仁愛區</a></li>
+			<li><a href="#">安樂區</a></li>
+			<li><a href="#">七堵區</a></li>
+			<li><a href="#">暖暖區</a></li>
+		</ul>
+	</div>
+
+	<div id="sidebar">
+		暖暖區美食
+		<!--<div id="feed">
+			<a class="feed-button" href="#"></a>
+		</div>-->
+		<ul>
+			<li><a href="#">暖暖區首頁</a></li>
+			<li><a href="#">七年級串燒</a></li>
+			<li><a href="#">暖暖老街麵攤</a></li>
+			<li><a href="#">暖暖咖啡</a></li>
+		</ul>
+		<div id="sidebar-bottom">
+			&nbsp;
+		</div>
+	</div>
+	<div id="content"> 
+                  <h1>無名老店蔥油餅</h1>  
+				  <div style="border-color:#aaaaee;border-style:dashed;border-width:6px 6px 6px 6px;padding:5px;">
+				  <p style= "margin-top:20px ;text-decoration:underline ;color:red;">極酥脆的美味手工蔥油餅、阿嬤乾麵，推薦必吃在地早餐!</p>
+				  <img src = ".\warm\food2-1.jpg" width="80%" height="280px">
+				  <p style= "margin-top:20px ;">店面不大，有些老舊及簡陋，感覺就是住家一樓隨意擺設的小攤子，店內及騎樓下都擺上鐵桌鐵椅，座位不多，到時已是滿座，大約等上10分左右才有座位。</p>
+				  <!--<div style = "float:right;font-size:15px;font-weight:bold;margin:-20px 30px">內容取自---WIKI</div>-->
+                    <img src = ".\warm\food2-2.jpg" width="80%" height="280px">
+					<p style = "margin-top:20px"> 店內外沒看到招牌……立牌上只寫著老店，店內也寫著老店新開等字眼，上網查了一下，好像叫石頭蔥油餅(?)</p>
+					<img src = ".\warm\food2-3.jpg" width="45%" height="400px" style = "margin-right:10px;margin-left:10px">
+					<img src = ".\warm\food2-4.jpg" width="45%" height="400px" style = "margin-right:10px;margin-left:10px">
+					<p style= "margin-top:15px;">餐點主食為蔥油餅、乾麵、餛飩等。價目表下圖</p>
+					 <img src = ".\warm\food2-5.jpg" width="80%" height="280px">
+					<section style= "margin-top:15px ;color:red">蔥油餅  $17/個 </section>
+ 					<p>外層先煎後烤，非常的酥脆而且乾爽不油膩，是那種一咬下去會喀吱作響，碎成片片的狀態。內層滿柔軟的，微帶彈性，蔥花也不少，有蔥香、麵香及油香。</p>
+					<img src = ".\warm\food2-6.jpg" width="80%" height="300px">
+					<img src = ".\warm\food2-7.jpg" width="80%" height="300px"style= "margin-top:20px">
+					<section style= "margin-top:15px ;color:red">乾麵 $25</section>
+					<p style= "margin-top:15px"> 以豬油、醬油為主，很簡單的調味，加入些許青菜， 滿香的，麵就是一般的陽春麵，汁偏多偏溼，吃來滑溜順口，樸實的古早味，還不錯。 </p>
+					<img src = ".\warm\food2-8.jpg" width="80%" height="300px">
+					<section style= "margin-top:15px ;color:red">餛飩湯 $35</section>
+					<p style= "margin-top:15px;">湯頭透明，浮著些許油花， 喝起來就是單純大骨湯的味道，滿清淡的。加了紫菜跟蔥花，増添些許鮮味及香氣。</p>
+					<img src = ".\warm\food2-9.jpg" width="80%" height="300px">
+					
+								<div style = "float:right;font-size:15px;font-weight:bold;margin:0px 20px">內容及圖片來源---><a 
+								href = "https://www.walkerland.com.tw/article/view/128846" target="_blank" title = "鄭小柔Charlene">原文連結</a></div>
+								<br><br><br>
+					</div>
+                  <h1 style = "margin-bottom:20px;">如何前往老店蔥油餅呢?</h1>
+                 <!--<p style="margin-bottom:20px; margin-top:20px"></p>  -->
+				 <section> 地址 : 基隆市暖暖區源遠路278號1樓 </section>
+				 <select id="agree" style = "width:20%;"onchange="getAddress();">
+                      <option value="no">自行輸入地點</option>
+                      <option value="yes">同意本站存取您現在的位置</option>
+                   </select>
+				   <label id="address_lb">出發地
+                     <input id="address" type="text" size="30" id="address"/>
+                  </label>
+                 <select id="mode" style = "margin-top:2px;">
+                      <option value="DRIVING">開車</option>
+                      <option value="WALKING">步行</option>
+                   </select>
+                  <input type="button" value="前往!" id="go" onclick="calcRoute();"style = "margin-left:10px"/><br />
+				   
+				  <div style = "margin-top:-20px">
+                   <div id="map-canvas"style="width: 70%; height: 250px"></div>             
+                  <!--<p style="clear:both" /> -->
+              <!-- end center-->
+              
+                 <div style=" height:300px; float:left; width:20%;margin-left:20px;margin-bottom:30px;">
+                     <div id="directionsPanel" style="width:200px; height:300px;  overflow-Y:auto"></div>
+                </div>    
+				 <div class="clear" style="height:40px"></div> 
+				</div>				
+                <!--<div class="clear" style="height:40px"></div> -->
+            
+            </div> 
+            <!-- end content --> 
+          
+	<div id="footer">
+		<div id="footer-valid">
+			<a href="http://validator.w3.org/check/referer">參考資料</a> 
+			<br><br>
+			<a href="http://www.ginger-ninja.net/">關於我們!</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>
