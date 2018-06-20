@@ -18,8 +18,8 @@ Author URI: http://www.ginger-ninja.net/
 			text-shadow: -2px 5px 0px #000000;
             left: 4%;}  
 .imgw{position: relative;
-			height:250px;
-			width:100%} 
+			height:330px ;
+			width:100%;} 
 html #map-canvas 
 {
 	height: 100%;
@@ -28,7 +28,8 @@ html #map-canvas
 	float:left;
 	}
 body {
-	background:url(03365165632dcdb6ac7259e0fc06e2c.jpg) no-repeat center;
+	background:url(pic_298_8.jpg) no-repeat center;
+	background-attachment: fixed;
 	background-size: 100% 100%;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size:70%; /* Sets default font size to 10px */
@@ -55,6 +56,7 @@ body {
 
 img {
 	border:0;
+	
 	}
 h1 {
 	color:#55c400; /*綠*/
@@ -141,9 +143,9 @@ a:hover {
 	}
 #header {
 	margin-left : 4%;
-	height:260px;
-	margin-top : 10px;
-	width :90%;
+	height:350px;
+	margin-top :2%;
+	width :100%;
 	}
 #content {
 	float:left;
@@ -190,7 +192,9 @@ a:hover {
 	margin:0 auto ;
 	text-align:center;
 	font-family: Verdana,Arial,sans-serif;
-	font-size :25px;
+	font-size :20px;
+	width :100%;
+	
 }
 #menu ul {
 		display:table;
@@ -213,7 +217,7 @@ a:hover {
 			border-width:2px 2px 2px 2px;
 			text-align:center;
 			/*background:transparent url('images/css/hmenu.jpg') repeat-x top left;*/ /*目錄的背景*/
-			background :#1E90FF;
+			background :#404040;
 	}
 #menu ul li a {
 				display:block;
@@ -227,22 +231,22 @@ a:hover {
 	}
 #menu li a:hover {
 	/*background:url(images/bg-menu-hover.png) no-repeat center center;*/
-	background : green;
+	background : #D8D8D8;
 	}
 
 /* Sidebar */
 
 #sidebar {
-	font-size : 22px;
+	font-size : 30px;
 	float:right;
+	margin-top:200px;
+	margin-right:5.5%;
 	width:180px;
-	padding: 20px 30px;
 	text-align :left;
 	color:#55c400;
-	margin-top:60px;
 	}
 #sidebar ul {
-	margin-top:10px;
+	margin-top:20px;
 	list-style-type:none;
 	font-size : 15px;
 	}
@@ -251,10 +255,9 @@ a:hover {
 	}
 #sidebar li a {
 	display:block;
-	height:20px;
-	line-height:20px;
+	height:40px;
 	color:#222222;
-	padding-left:2px;
+	font-size:20px;
 	border-bottom:1px solid #dddddd;
 	color:#55c400;
 	}
@@ -342,12 +345,11 @@ a:hover.feed-button {
 	}
 	.slideshow {
 		position: relative;
-		height:250px;
-
-		width: 100%;
 		float: left;
-		margin: 0 px;
+		margin: 0 10px;
 		border: 3px solid #ddd;
+		width:90%;
+	    height:90%
 		
 	}
 	.slideshow li {
