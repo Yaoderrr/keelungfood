@@ -1,0 +1,381 @@
+/*  
+Theme Name: Ginger Ninja! v2
+Description: The new Ginger Ninja! theme.
+Version: 1.0
+Author: Donny Burnside
+Author URI: http://www.ginger-ninja.net/
+*/
+
+/* Generic Styling */
+
+/*body相關功能*/
+.words{font-size: 40px;  
+            letter-spacing: 3px;  
+            position: absolute; 
+			top: 10%;
+			color : white;
+			font-family:fantasy;
+			text-shadow: -2px 5px 0px #000000;
+            left: 4%;}  
+.imgw{position: relative;
+			height:250px;
+			width:100%} 
+html #map-canvas 
+{
+	height: 100%;
+	margin: 20px; 
+	padding: 0;
+	float:left;
+	}
+body {
+	background:url(03365165632dcdb6ac7259e0fc06e2c.jpg) no-repeat center;
+	background-size: 100% 100%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:70%; /* Sets default font size to 10px */
+	color:#222222;
+	/*display:table;*/  
+	width:100%;
+	}
+	* {
+	margin:0;
+	padding:0;
+	}
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+* {
+	margin:0;
+	padding:0;
+	}
+
+img {
+	border:0;
+	}
+h1 {
+	color:#55c400; /*綠*/
+	font-size:30px; 
+	margin:25px 40px 10px 0;
+	clear:both; /*清除左右float*/
+	
+}
+
+h2 {
+	color:#55c400;
+	font-size:20px;
+	margin:20px 0 10px 0;
+	clear:both;
+}
+
+h3 {
+	color:#55c400;
+	font-size:18px;
+	margin:20px 0 5px 0;
+	clear:both;
+}
+label ,select
+{
+	margin-bottom:2em;
+	font-size:15px;
+	font-family :Cursive;
+	text-align:left,justify;
+	letter-spacing: 1px;
+}
+p {
+	margin-bottom:1.5em;
+	font-size:20px;
+	font-family :Cursive;
+	text-align:left,justify;
+	letter-spacing: 1px;
+	}
+
+a{
+	text-decoration:none;
+	color:green;
+	margin-top: 2px;
+	font-family:Microsoft JhengHei;
+}
+article{
+	font-size:20px;
+	font-family :Cursive;
+	text-align:left,justify;
+	letter-spacing: 1px;
+	margin-bottom:2em;
+}
+section 
+{
+	margin-bottom:0.5em;
+	font-size:25px;
+	font-family :Cursive;
+	text-align:left,justify;
+	letter-spacing: 1px;
+}
+article:first-letter
+{
+	font-size:40px;
+	font-weight:bold;
+}
+a:visited  /*已按過的link*/
+{
+	color:#B800B8;
+	text-decoration:none;
+}	
+a:hover {
+	text-decoration:underline;
+	color:#1E90FF;
+	}
+
+/* Structure */
+
+#wrapper {
+	margin:0 auto;
+	width:65%;
+    /*background:white;*/
+	font-size:1.20em;
+	background-color:white;
+
+	}
+#header {
+	margin-left : 4%;
+	height:260px;
+	margin-top : 10px;
+	width :90%;
+	}
+#content {
+	float:left;
+	width:70%;
+	min-height:400px;
+	margin-left:40px;
+	}
+
+/* Entries */
+
+.entry {
+	padding:5px 10px;
+	text-align:justify;
+	line-height:1.75em;
+	}
+.entry-title {
+	font-size:1.90em;
+	font-weight:normal;
+	letter-spacing:-1px;
+	}
+.date {
+	font-size:0.9em;
+	color:#bbb;
+	cursor:default;
+	letter-spacing:1px;
+	}
+.comments {
+	margin-top:-1em;
+	}
+.comments a {
+	color:#6CC7DC;
+	background:url(images/icon-comment.png) no-repeat 0px 2px;
+	padding-left:20px;
+	padding-right:2px;
+	}
+.comments a:hover {
+	color:#B4C835;
+	}
+
+
+/* Menu */
+#menu {
+	height:30px;
+	margin:0 auto ;
+	text-align:center;
+	font-family: Verdana,Arial,sans-serif;
+	font-size :25px;
+}
+#menu ul {
+		display:table;
+		margin:0 auto;
+		padding:0;
+		list-style-type:none; /*不用設項目符號*/
+		position:relative;  
+		height:30px;
+		font-size:15px;
+		font-family: Verdana,Arial,sans-serif;
+		width:100%;
+	}
+#menu ul li {
+			display:block; /*分段顯示*/
+			float:left;
+			margin:0px;
+			width:11.5%;
+			border-color:black;
+			border-style:solid;
+			border-width:2px 2px 2px 2px;
+			text-align:center;
+			/*background:transparent url('images/css/hmenu.jpg') repeat-x top left;*/ /*目錄的背景*/
+			background :#1E90FF;
+	}
+#menu ul li a {
+				display:block;
+				color:#eeeeee; /*灰色*/
+				text-decoration:none;
+				padding:0px 17px ;
+				line-height:30px;
+				font-weight:bold;
+				text-align:center;
+				letter-spacing:4px;
+	}
+#menu li a:hover {
+	/*background:url(images/bg-menu-hover.png) no-repeat center center;*/
+	background : green;
+	}
+
+/* Sidebar */
+
+#sidebar {
+	font-size : 22px;
+	float:right;
+	width:180px;
+	padding: 20px 30px;
+	text-align :left;
+	color:#55c400;
+	margin-top:60px;
+	}
+#sidebar ul {
+	margin-top:10px;
+	list-style-type:none;
+	font-size : 15px;
+	}
+#sidebar li {
+	list-style: circle;
+	}
+#sidebar li a {
+	display:block;
+	height:20px;
+	line-height:20px;
+	color:#222222;
+	padding-left:2px;
+	border-bottom:1px solid #dddddd;
+	color:#55c400;
+	}
+#sidebar li a:hover {
+	background:#edebed;
+	color:#6CC4D8;
+	}
+#sidebar-bottom {
+	height:20px;
+	background: no-repeat top center;
+	}
+
+/* Footer */
+#footer {
+	clear:both;
+	height:120px;
+	background:url(4_20170329_KLG-9-2-onlyweb.jpg) no-repeat;
+	background-size:1000px 300px;
+	background-position:top center;
+	line-height:-5px;
+	margin:0 auto;
+	padding:0;
+	}
+#footer-valid {
+	text-align: center;
+	padding-top:40px;
+	padding-left:20px;
+	cursor:default;
+	color:black;
+	font-weight:bold;
+	}
+
+/* Heading's */
+
+/* Feed */
+
+#feed {
+	height:25px;
+	width:126px;
+	background:url(images/bg-feed.gif) no-repeat;
+	margin:0 auto;
+	padding-left:26px;
+	}
+a.feed-button {
+	display:block;
+    width:100px;
+    height:25px;
+    background:url("images/button-feed.png") 0 0 no-repeat;
+    text-decoration: none;
+	}
+a:hover.feed-button {
+	background-position:0 -25px;
+	}
+
+/* Extra's */
+
+#ad-top {
+	width:480px;
+	height:72px;
+	background:url(images/bg-ad-top.png) no-repeat;
+	padding:5px;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	ul, li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.slideshow {
+		position: relative;
+		height:250px;
+
+		width: 100%;
+		float: left;
+		margin: 0 px;
+		border: 3px solid #ddd;
+		
+	}
+	.slideshow li {
+		position: absolute;
+	}
+	.slideshow a img{
+		display: block;
+		padding: 0;
+		margin: 0 auto;
+		border: none;
+	}
+	.slideshow li a{
+		display: block;
+	}
+	.slideshowController {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+	
+	.slideshowController .next{
+		background-position: -30px 0;
+		right: 0;
+	}
+	.slideshowController .play{
+		background-position: -60px 0;
+		right: 30px;
+	}
+	.slideshowController .pause{
+		background-position: -90px 0;
+	}
