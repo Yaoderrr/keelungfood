@@ -1,7 +1,7 @@
-��s���p�վ�
+更新的小調整
 
-���k�誺����a�B�T�w�b�P�@��m
-Facebook�d���O
-�״_bugs
+讓右方的選單懸浮固定在同一位置
+移除Facebook留言板(網域問題)
+修復bugs
 
 
